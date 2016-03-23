@@ -10,10 +10,27 @@ export default class Create_todo extends React.Component {
 				</form>
 		);
 	}
+	
 	handleCreate(event){
 		event.preventDefault();
-		this.props.createtask(this.refs.createinput.value);
+		const createinput = this.refs.createinput;
+		const task = createinput.value;
+		const validate = this.validate(task); 
+		if (validate === null){
+			this.props.createtask(this.refs.createinput.value);
+		}
 		this.refs.createinput.value = '';
 	}
 
+	validate(task){
+		if (!task){
+			return alert('No input')
+		}
+		else if (_.find(this.props.todos, todo=>todo.task === task)){
+			return alert("Task already exist")
+		}
+		else{
+			return null;
+		}
+	}
 }

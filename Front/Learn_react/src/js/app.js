@@ -4,7 +4,7 @@ import Create_todo from './create_todo'
 
 const todos = [{
 	task: 'todo',
-	isComplete: true
+	isComplete: false
 }, 
 {
 	task: 'eat',
@@ -22,7 +22,10 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<h1>React Todolist</h1>
-				<Create_todo createtask = {this.createtask.bind(this)}/>
+				<Create_todo
+				 createtask = {this.createtask.bind(this)}
+				 todos = {this.state.todos}
+				/>
 				<Todolist 
 				todos = {this.state.todos}
 				toggleTask = {this.toggleTask.bind(this)}
@@ -46,12 +49,30 @@ export default class App extends React.Component {
 			}
 			);
 		this.setState({todos: this.state.todos});
+
+
 	}
 
+	validate(task){
+		if (!task){
+			return alert("Can't be null")
+		}
+		else if (_.find(this.state.todos, todo => todo.task === task)){
+			return alert("Duplicate or no change")
+		}
+		else{
+			return null;
+		}
+	}
+	
 	saveTask(oldTask, newTask){
-		const foundtodo = _.find(this.state.todos, todo => todo.task === oldTask);
-		foundtodo.task = newTask;
+		const validate = this.validate(newTask);
+		if (validate === null){
+			const foundtodo = _.find(this.state.todos, todo => todo.task === oldTask);
+			foundtodo.task = newTask;	
+		}
 		this.setState({todos:this.state.todos});
+		
 	}
 
 	deleteTask(to_delete){
