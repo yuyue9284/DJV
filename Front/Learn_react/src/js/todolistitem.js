@@ -10,6 +10,26 @@ export default class TodolistItem extends React.Component {
 		};
 	}
 
+	renderTask(){
+		const{ task, isComplete } = this.props;
+		const taskStyle = {
+			color: isComplete ?'green':'red',
+			cursor:'pointer'
+		};
+		return(
+			
+			<td style = {taskStyle} onClick = {this.props.toggleTask.bind(this, task)}>
+			{this.props.task}
+			</td>
+
+
+			);
+	}
+	
+	toggleTask(task){
+		const foundtodo = _.find(this.state.todos, todo => todo.task === task)
+	}
+
 	renderActionsSection(){
 		if (this.state.isEditing){
 			return(
@@ -31,7 +51,7 @@ export default class TodolistItem extends React.Component {
 	render() {
 		return (
 			<tr>
-				<td>{this.props.task}</td>
+				{this.renderTask()}
 				{this.renderActionsSection()}
 			</tr>
 		);
