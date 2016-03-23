@@ -26,6 +26,8 @@ export default class App extends React.Component {
 				<Todolist 
 				todos = {this.state.todos}
 				toggleTask = {this.toggleTask.bind(this)}
+				saveTask = {this.saveTask.bind(this)}
+				deleteTask = {this.deleteTask.bind(this)}
 				/>			
 			</div>
 		);
@@ -44,5 +46,16 @@ export default class App extends React.Component {
 			}
 			);
 		this.setState({todos: this.state.todos});
+	}
+
+	saveTask(oldTask, newTask){
+		const foundtodo = _.find(this.state.todos, todo => todo.task === oldTask);
+		foundtodo.task = newTask;
+		this.setState({todos:this.state.todos});
+	}
+
+	deleteTask(to_delete){
+		_.remove(this.state.todos, todo => todo.task === to_delete);
+		this.setState({todos:this.state.todos});
 	}
 }
