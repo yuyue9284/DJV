@@ -16,5 +16,4 @@ export default class Todolist extends React.Component {
 			</table>
 		);
 	}
-
 }
