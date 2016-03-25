@@ -24,8 +24,11 @@ export default class Add extends React.Component {
 			this.refs.stockcode.value = '';
 			this.refs.inputDate.value = '';
 
+			var stockitem = _.find(stocklist, stockitem => stockitem.code === stockcode && stockitem.date === date);
+			this.props.update(stockitem);
+
 		} else {
-			alert("do nothing");
+			alert("Do nothing");
 		}
 
 		

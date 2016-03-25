@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import Add from './add'
+import Displaystock from './displaystock'
 
 const stocklist = [
 {
@@ -14,21 +15,30 @@ const stocklist = [
 },
 ]
 
+const displaystocklist = []
+
 export default class App extends React.Component {
 
 	constructor(props){
 		super(props);
 		this.state = {
-			stocklist
+			stocklist,
+			displaystocklist
 		}
 	}
 
 	render(){
 		return(
 			<div>
-			<Add stocklist = {this.state.stocklist}/>
+			<Add stocklist = {this.state.stocklist} update = {this.update.bind(this)}/>
+			<Displaystock displaystocklist = {this.state.displaystocklist}/>
 			</div>
 			);
+	}
+
+	update(stockitem){
+		this.state.displaystocklist.push(stockitem);
+		this.setState({displaystocklist:this.state.displaystocklist});
 	}
 }
 
