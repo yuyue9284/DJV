@@ -14,6 +14,7 @@ export default class DisplayStock extends React.Component {
 	}
 
 	renderItems(){
-		return _.map(this.props.displaystocklist, (stockitem, index) => <StockItem key = {index} {...stockitem}/>)
+		const props = _.omit(this.props, 'displaystocklist');
+		return _.map(this.props.displaystocklist, (stockitem, index) => <StockItem key = {index} {...stockitem}{...props}/>)
 	}
 }

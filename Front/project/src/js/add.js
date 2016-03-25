@@ -23,9 +23,12 @@ export default class Add extends React.Component {
 			alert("find the stock");
 			this.refs.stockcode.value = '';
 			this.refs.inputDate.value = '';
-
 			var stockitem = _.find(stocklist, stockitem => stockitem.code === stockcode && stockitem.date === date);
-			this.props.update(stockitem);
+			if (_.find(this.props.displaystocklist, stockitem)) {
+				alert("stock already exist");
+			} else {
+				this.props.update(stockitem);
+			}
 
 		} else {
 			alert("Do nothing");

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-
-import Add from './add'
-import Displaystock from './displaystock'
+import _ from 'lodash';
+import Add from './add';
+import Displaystock from './displaystock';
 
 const stocklist = [
 {
@@ -30,8 +30,8 @@ export default class App extends React.Component {
 	render(){
 		return(
 			<div>
-			<Add stocklist = {this.state.stocklist} update = {this.update.bind(this)}/>
-			<Displaystock displaystocklist = {this.state.displaystocklist}/>
+			<Add stocklist = {this.state.stocklist} update = {this.update.bind(this)} displaystocklist = {this.state.displaystocklist}/>
+			<Displaystock removestock = {this.removestock.bind(this)} displaystocklist = {this.state.displaystocklist}/>
 			</div>
 			);
 	}
@@ -39,6 +39,13 @@ export default class App extends React.Component {
 	update(stockitem){
 		this.state.displaystocklist.push(stockitem);
 		this.setState({displaystocklist:this.state.displaystocklist});
+	}
+
+	removestock(code, date) {
+		_.remove(this.state.displaystocklist, rm => rm.code === code && rm.date === date);
+		this.setState({
+			displaystocklist: this.state.displaystocklist
+		});
 	}
 }
 
