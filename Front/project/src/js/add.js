@@ -5,8 +5,8 @@ export default class Add extends React.Component {
 	render(){
 		return(
 				<form onSubmit = {this.handleSubmit.bind(this)}>
-					<input type="date" ref="inputDate"/> 日期 <br/>
-					<input type="text" ref="stockcode"/> 股票代码 <br/>
+					<input type="date" placeholder="Date" ref="inputDate"/> 
+					<input type="text" placeholder="Stock code" ref="stockcode"/> 
 					<input type="submit" ref = "submit" value="提交"/>
 				</form>
 			);
