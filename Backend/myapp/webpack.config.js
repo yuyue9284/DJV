@@ -1,8 +1,21 @@
-{
-    context: __dirname,
-    entry: "./entry",
-    output: {
-        path: __dirname,
-        filename: "app.js"
-    }
-}
+var webpack = require('webpack');
+var path = require('path');
+
+module.exports = {
+  context: path.join(__dirname, "src"),
+  entry: "./js/app.js",
+  output: {
+    path: __dirname + "/src/",
+    filename: "bundle.js"
+  },
+  module: {
+    loaders: [{
+      test: /.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: {
+        presets: ['es2015', 'react']
+      }
+    }]
+  }
+};
