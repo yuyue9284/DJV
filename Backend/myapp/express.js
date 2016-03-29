@@ -35,15 +35,12 @@ app.post('/post', function (req, res) {
    var datarcv = req.body;
    var stockitem = _.find(database, item => item.code === datarcv[0].code && item.date === datarcv[0].date );
    if (!stockitem){
-   	console.log('not found');
-   	datarcv[0] = null;
+   	// console.log('not found');
+   	var datasnd = null;
+   }else{
+   	var datasnd = stockitem;
    }
-
-   var datasnd = JSON.stringify(datarcv);
-   console.log(datasnd);
-
-   res.send(datasnd);
-   // res.render('index',{jsonifiedProps:datasnd});
+   res.send(JSON.stringify(datasnd));
 })
 
 

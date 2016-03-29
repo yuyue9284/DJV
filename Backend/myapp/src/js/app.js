@@ -19,13 +19,19 @@ export default class App extends React.Component {
 	render(){
 		return(
 			<div>
-			<Add displaystocklist = {this.state.displaystocklist}/>
+			<Add update = {this.update.bind(this)} displaystocklist = {this.state.displaystocklist}/>
 			<Displaystock removestock = {this.removestock.bind(this)} displaystocklist = {this.state.displaystocklist}/>
 			</div>
 			);
 	}
 
-
+	update(stockitem){
+		this.state.displaystocklist.push(stockitem);
+		this.setState({
+			displaystocklist:this.state.displaystocklist
+		});
+	}
+	
 	removestock(code, date) {
 		_.remove(this.state.displaystocklist, rm => rm.code === code && rm.date === date);
 		this.setState({

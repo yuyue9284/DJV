@@ -103,9 +103,17 @@
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_add2.default, { displaystocklist: this.state.displaystocklist }),
+					_react2.default.createElement(_add2.default, { update: this.update.bind(this), displaystocklist: this.state.displaystocklist }),
 					_react2.default.createElement(_displaystock2.default, { removestock: this.removestock.bind(this), displaystocklist: this.state.displaystocklist })
 				);
+			}
+		}, {
+			key: 'update',
+			value: function update(stockitem) {
+				this.state.displaystocklist.push(stockitem);
+				this.setState({
+					displaystocklist: this.state.displaystocklist
+				});
 			}
 		}, {
 			key: 'removestock',
@@ -34879,12 +34887,12 @@
 			key: 'handleSubmit',
 			value: function handleSubmit(event) {
 
-				// event.preventDefault();
+				event.preventDefault();
 				var displaystocklist = this.props.displaystocklist;
 				var code = this.refs.stockcode.value;
 				var date = this.refs.inputDate.value;
 				var isvalidate = this.validate(displaystocklist, code, date);
-
+				var update = this.props.update;
 				if (isvalidate) {
 					// input compelete
 					this.refs.stockcode.value = '';
@@ -34897,19 +34905,23 @@
 						code: code
 					}].concat(displaystocklist);
 					xhr.send(JSON.stringify(datatosend));
-					// xhr.responseType = 'text';
+					xhr.responseType = 'text';
 
-					// xhr.onload = function() {
-					// 	if (xhr.readyState === xhr.DONE) {
-					// 		if (xhr.status === 200) {
-					// 			console.log(xhr.response);
-					// 			console.log(xhr.responseText);
-					// 		}
-					// 	}
-					// };
+					xhr.onload = function () {
+						if (xhr.readyState === xhr.DONE) {
+							if (xhr.status === 200) {
+								var data = JSON.parse(xhr.response);
+								if (data === null) {
+									alert('Not found');
+								} else {
+									update(data);
+								}
+							}
+						}
+					};
 				} else {
-						alert("Do nothing");
-					}
+					alert("Do nothing");
+				}
 			}
 		}, {
 			key: 'validate',

@@ -16,12 +16,12 @@ export default class Add extends React.Component {
 
 	handleSubmit(event) {
 
-		// event.preventDefault();
+		event.preventDefault();
 		let displaystocklist = this.props.displaystocklist;
 		let code = this.refs.stockcode.value;
 		let date = this.refs.inputDate.value;
 		let isvalidate = this.validate(displaystocklist, code, date);
-
+		let update = this.props.update;
 		if (isvalidate) {
 			// input compelete
 			this.refs.stockcode.value = '';
@@ -34,16 +34,21 @@ export default class Add extends React.Component {
 				code: code
 			}].concat(displaystocklist);
 			xhr.send(JSON.stringify(datatosend));
-			// xhr.responseType = 'text';
+			xhr.responseType = 'text';
 
-			// xhr.onload = function() {
-			// 	if (xhr.readyState === xhr.DONE) {
-			// 		if (xhr.status === 200) {
-			// 			console.log(xhr.response);
-			// 			console.log(xhr.responseText);
-			// 		}
-			// 	}
-			// };
+			xhr.onload = function() {
+				if (xhr.readyState === xhr.DONE) {
+					if (xhr.status === 200) {
+						let  data = JSON.parse(xhr.response);
+						if(data === null){
+							alert('Not found');
+						}
+						else{
+							update(data);
+						}
+					}
+				}
+			};
 
 
 		} else {
