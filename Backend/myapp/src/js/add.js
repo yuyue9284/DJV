@@ -29,10 +29,10 @@ export default class Add extends React.Component {
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", url, true);
 			xhr.setRequestHeader("Content-type", "application/json");
-			let datatosend = [{
+			let datatosend = {
 				date: date,
 				code: code
-			}].concat(displaystocklist);
+			};
 			xhr.send(JSON.stringify(datatosend));
 			xhr.responseType = 'text';
 
@@ -66,8 +66,8 @@ export default class Add extends React.Component {
 		} else if (displaystocklist.length === 0) {
 			return true;
 		} else {
-			let stockitem = _.find(displaystocklist, stockitem => stockitem.code === code && stockitem.date === date);
-			if (stockitem === null) {
+			let stockitem = _.find(displaystocklist, stockitem => stockitem.Code === code && stockitem.Date === date);
+			if (!stockitem) {
 				return true;
 			} else {
 				alert('Already exist');

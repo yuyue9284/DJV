@@ -119,7 +119,7 @@
 			key: 'removestock',
 			value: function removestock(code, date) {
 				_lodash2.default.remove(this.state.displaystocklist, function (rm) {
-					return rm.code === code && rm.date === date;
+					return rm.Code === code && rm.Date === date;
 				});
 				this.setState({
 					displaystocklist: this.state.displaystocklist
@@ -34900,10 +34900,10 @@
 					var xhr = new XMLHttpRequest();
 					xhr.open("POST", url, true);
 					xhr.setRequestHeader("Content-type", "application/json");
-					var datatosend = [{
+					var datatosend = {
 						date: date,
 						code: code
-					}].concat(displaystocklist);
+					};
 					xhr.send(JSON.stringify(datatosend));
 					xhr.responseType = 'text';
 
@@ -34933,9 +34933,9 @@
 					return true;
 				} else {
 					var stockitem = _lodash2.default.find(displaystocklist, function (stockitem) {
-						return stockitem.code === code && stockitem.date === date;
+						return stockitem.Code === code && stockitem.Date === date;
 					});
-					if (stockitem === null) {
+					if (!stockitem) {
 						return true;
 					} else {
 						alert('Already exist');
@@ -35063,19 +35063,39 @@
 					_react2.default.createElement(
 						'td',
 						null,
-						this.props.code
+						this.props.Code
 					),
 					_react2.default.createElement(
 						'td',
 						null,
-						this.props.date
+						this.props.Date
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.Open
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.High
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.Low
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						this.props.Volume
 					),
 					_react2.default.createElement(
 						'td',
 						null,
 						_react2.default.createElement(
 							'button',
-							{ onClick: this.props.removestock.bind(this, this.props.code, this.props.date) },
+							{ onClick: this.props.removestock.bind(this, this.props.Code, this.props.Date) },
 							' 删除 '
 						)
 					)

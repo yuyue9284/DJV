@@ -33,7 +33,7 @@ export default class App extends React.Component {
 	}
 	
 	removestock(code, date) {
-		_.remove(this.state.displaystocklist, rm => rm.code === code && rm.date === date);
+		_.remove(this.state.displaystocklist, rm => rm.Code === code && rm.Date === date);
 		this.setState({
 			displaystocklist: this.state.displaystocklist
 		});
