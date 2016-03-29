@@ -13,6 +13,7 @@ var db = new sqlite3.Database('./mada.db');
 
 
 var data = JSON.stringify([]);
+
 app.get('/', function(req, res) {
 	res.render('index', {jsonifiedProps:data});
 });
@@ -25,7 +26,7 @@ app.get('/add', function(req, res) {
 
 app.post('/post', function(req, res, next) {
    var datarcv = req.body;
-   var sqlRequest = "select * from DJI where Code = '" + datarcv.code + "' and Date = '" + datarcv.date +"'";
+   var sqlRequest = "select * from DJI where Code = '" + datarcv.code + "'";
    db.all(sqlRequest, function(err, row) {
       if (err !== null) {
          next(err);
@@ -34,7 +35,7 @@ app.post('/post', function(req, res, next) {
             var datasnd = null;
          }
          else{
-            var datasnd = row[0];
+            var datasnd = row;
          }
          res.send(JSON.stringify(datasnd));
       }

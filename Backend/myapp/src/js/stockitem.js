@@ -9,11 +9,16 @@ export default class StockItem extends React.Component {
 			<td>{this.props.Open}</td>
 			<td>{this.props.High}</td>
 			<td>{this.props.Low}</td>
+			<td>{this.props.Close}</td>
 			<td>{this.props.Volume}</td>
-			<td><button onClick={this.props.removestock.bind(this,this.props.Code, this.props.Date)}> 删除 </button></td>
+			<td><button onClick={this.props.removestock.bind(this,this.props.Code)}> 删除 </button></td>
 			</tr>
 			);
 
+	}
+
+	renderprops(){
+		
 	}
 
 }

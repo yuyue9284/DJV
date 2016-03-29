@@ -109,17 +109,16 @@
 			}
 		}, {
 			key: 'update',
-			value: function update(stockitem) {
-				this.state.displaystocklist.push(stockitem);
+			value: function update(stockitemlist) {
 				this.setState({
-					displaystocklist: this.state.displaystocklist
+					displaystocklist: this.state.displaystocklist.concat(stockitemlist)
 				});
 			}
 		}, {
 			key: 'removestock',
 			value: function removestock(code, date) {
 				_lodash2.default.remove(this.state.displaystocklist, function (rm) {
-					return rm.Code === code && rm.Date === date;
+					return rm.Code === code;
 				});
 				this.setState({
 					displaystocklist: this.state.displaystocklist
@@ -34878,7 +34877,6 @@
 				return _react2.default.createElement(
 					'form',
 					{ onSubmit: this.handleSubmit.bind(this) },
-					_react2.default.createElement('input', { type: 'date', placeholder: 'Date', ref: 'inputDate' }),
 					_react2.default.createElement('input', { type: 'text', placeholder: 'Stock code', ref: 'stockcode' }),
 					_react2.default.createElement('input', { type: 'submit', ref: 'submit', value: '提交' })
 				);
@@ -34890,18 +34888,19 @@
 				event.preventDefault();
 				var displaystocklist = this.props.displaystocklist;
 				var code = this.refs.stockcode.value;
-				var date = this.refs.inputDate.value;
-				var isvalidate = this.validate(displaystocklist, code, date);
+				// let date = this.refs.inputDate.value;
+				// let isvalidate = this.validate(displaystocklist, code, date);
+				var isvalidate = this.validate(displaystocklist, code);
 				var update = this.props.update;
 				if (isvalidate) {
 					// input compelete
 					this.refs.stockcode.value = '';
-					this.refs.inputDate.value = '';
+					// this.refs.inputDate.value = '';
 					var xhr = new XMLHttpRequest();
 					xhr.open("POST", url, true);
 					xhr.setRequestHeader("Content-type", "application/json");
 					var datatosend = {
-						date: date,
+						// date: date,
 						code: code
 					};
 					xhr.send(JSON.stringify(datatosend));
@@ -34926,14 +34925,14 @@
 		}, {
 			key: 'validate',
 			value: function validate(displaystocklist, code, date) {
-				if (!(code && date)) {
+				if (!code) {
 					alert('Input not complete');
 					return false;
 				} else if (displaystocklist.length === 0) {
 					return true;
 				} else {
 					var stockitem = _lodash2.default.find(displaystocklist, function (stockitem) {
-						return stockitem.Code === code && stockitem.Date === date;
+						return stockitem.Code === code;
 					});
 					if (!stockitem) {
 						return true;
@@ -35088,6 +35087,11 @@
 					_react2.default.createElement(
 						'td',
 						null,
+						this.props.Close
+					),
+					_react2.default.createElement(
+						'td',
+						null,
 						this.props.Volume
 					),
 					_react2.default.createElement(
@@ -35095,12 +35099,15 @@
 						null,
 						_react2.default.createElement(
 							'button',
-							{ onClick: this.props.removestock.bind(this, this.props.Code, this.props.Date) },
+							{ onClick: this.props.removestock.bind(this, this.props.Code) },
 							' 删除 '
 						)
 					)
 				);
 			}
+		}, {
+			key: 'renderprops',
+			value: function renderprops() {}
 		}]);
 
 		return StockItem;

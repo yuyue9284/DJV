@@ -7,7 +7,6 @@ export default class Add extends React.Component {
 	render(){
 		return(
 				<form onSubmit = {this.handleSubmit.bind(this)}>
-					<input type="date" placeholder="Date" ref="inputDate"/> 
 					<input type="text" placeholder="Stock code" ref="stockcode"/> 
 					<input type="submit" ref = "submit" value="提交"/>
 				</form>
@@ -19,18 +18,19 @@ export default class Add extends React.Component {
 		event.preventDefault();
 		let displaystocklist = this.props.displaystocklist;
 		let code = this.refs.stockcode.value;
-		let date = this.refs.inputDate.value;
-		let isvalidate = this.validate(displaystocklist, code, date);
+		// let date = this.refs.inputDate.value;
+		// let isvalidate = this.validate(displaystocklist, code, date);
+		let isvalidate = this.validate(displaystocklist, code);
 		let update = this.props.update;
 		if (isvalidate) {
 			// input compelete
 			this.refs.stockcode.value = '';
-			this.refs.inputDate.value = '';
+			// this.refs.inputDate.value = '';
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", url, true);
 			xhr.setRequestHeader("Content-type", "application/json");
 			let datatosend = {
-				date: date,
+				// date: date,
 				code: code
 			};
 			xhr.send(JSON.stringify(datatosend));
@@ -60,13 +60,13 @@ export default class Add extends React.Component {
 	}
 
 	validate(displaystocklist, code, date) {
-		if (!(code && date)) {
+		if (!(code)) {
 			alert('Input not complete');
 			return false;
 		} else if (displaystocklist.length === 0) {
 			return true;
 		} else {
-			let stockitem = _.find(displaystocklist, stockitem => stockitem.Code === code && stockitem.Date === date);
+			let stockitem = _.find(displaystocklist, stockitem => stockitem.Code === code);
 			if (!stockitem) {
 				return true;
 			} else {

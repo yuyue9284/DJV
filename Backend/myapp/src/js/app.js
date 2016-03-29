@@ -25,15 +25,14 @@ export default class App extends React.Component {
 			);
 	}
 
-	update(stockitem){
-		this.state.displaystocklist.push(stockitem);
+	update(stockitemlist){
 		this.setState({
-			displaystocklist:this.state.displaystocklist
+			displaystocklist:this.state.displaystocklist.concat(stockitemlist)
 		});
 	}
 	
 	removestock(code, date) {
-		_.remove(this.state.displaystocklist, rm => rm.Code === code && rm.Date === date);
+		_.remove(this.state.displaystocklist, rm => rm.Code === code);
 		this.setState({
 			displaystocklist: this.state.displaystocklist
 		});
