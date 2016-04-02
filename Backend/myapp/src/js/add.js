@@ -6,18 +6,30 @@ const url = 'http://localhost:3000/post';
 export default class Add extends React.Component {
 	render(){
 		return(
+			    <div>
 				<form onSubmit = {this.handleSubmit.bind(this)}>
 					<input type="text" placeholder="Stock code" ref="stockcode"/> 
 					<input type="submit" ref = "submit" value="提交"/>
 				</form>
+				<form onSubmit = {this.delstock.bind(this)}>
+					<input type="text" placeholder="DelStock code" ref="delstockcode"/> 
+					<input type="submit" ref = "delsubmit" value="删除"/>
+				</form>
+				</div>
 			);
+	}
+
+	delstock(event){
+		event.preventDefault();
+		let code = this.refs.delstockcode.value.toUpperCase();
+		this.props.removestock(code);
 	}
 
 	handleSubmit(event) {
 
 		event.preventDefault();
 		let displaystocklist = this.props.displaystocklist;
-		let code = this.refs.stockcode.value;
+		let code = this.refs.stockcode.value.toUpperCase();
 		// let date = this.refs.inputDate.value;
 		// let isvalidate = this.validate(displaystocklist, code, date);
 		let isvalidate = this.validate(displaystocklist, code);

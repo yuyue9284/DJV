@@ -23,6 +23,9 @@
     "lodash": "^4.6.1",
     "lodash-express": "0.0.3",
     "multer": "^1.1.0",
+    "react-d3-basic": "^1.6.11",
+    "react-d3-components": "^0.6.2",
+    "react-d3-tooltip": "^1.4.4",
     "sqlite3": "^3.1.2",
     "webpack": "^1.12.14"
   },
