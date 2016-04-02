@@ -22,6 +22,7 @@ export default class Add extends React.Component {
 	delstock(event){
 		event.preventDefault();
 		let code = this.refs.delstockcode.value.toUpperCase();
+		this.refs.delstockcode.value = '';
 		this.props.removestock(code);
 	}
 

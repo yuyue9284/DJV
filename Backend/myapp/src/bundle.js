@@ -34953,6 +34953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function delstock(event) {
 				event.preventDefault();
 				var code = this.refs.delstockcode.value.toUpperCase();
+				this.refs.delstockcode.value = '';
 				this.props.removestock(code);
 			}
 		}, {
